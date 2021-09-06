@@ -3,16 +3,23 @@ import { useState } from "react";
 import { Button, Confirm } from "semantic-ui-react";
 import { FETCH_POSTS_QUERY } from "../utils/graphql";
 
-const DeleteButton = ({ postId, onDelete }) => {
+const DeleteButton = ({ postId, commentId, onDelete }) => {
   console.log(postId);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-    variables: { postId },
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
+  const [deletePostOrComment] = useMutation(mutation, {
+    variables: { postId, commentId },
     update(proxy) {
-      const data = proxy.readQuery({ query: FETCH_POSTS_QUERY });
-      const posts = data.getPosts.filter((p) => p.id !== postId);
-      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: posts } });
+      if (!commentId) {
+        const data = proxy.readQuery({ query: FETCH_POSTS_QUERY });
+        const posts = data.getPosts.filter((p) => p.id !== postId);
+        proxy.writeQuery({
+          query: FETCH_POSTS_QUERY,
+          data: { getPosts: posts },
+        });
+      }
+
       setConfirmOpen(false);
       if (onDelete) onDelete();
     },
@@ -33,7 +40,7 @@ const DeleteButton = ({ postId, onDelete }) => {
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
-        onConfirm={deletePost}
+        onConfirm={deletePostOrComment}
       />
     </>
   );
@@ -42,6 +49,21 @@ const DeleteButton = ({ postId, onDelete }) => {
 const DELETE_POST_MUTATION = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId)
+  }
+`;
+
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($postId: ID!, $commentId: ID!) {
+    deleteComment(postId: $postId, commentId: $commentId) {
+      id
+      comment {
+        id
+        username
+        createdAt
+        body
+      }
+      commentCount
+    }
   }
 `;
 
