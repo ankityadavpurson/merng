@@ -44,7 +44,7 @@ const postResolver = {
     async deletePost(_, { postId }, context) {
       const user = checkAuth(context);
       try {
-        const post = await Post.findOne({ postId });
+        const post = await Post.findById(postId);
         if (user.username === post.username) {
           await post.delete();
           return "Post deleted sccessfully";
