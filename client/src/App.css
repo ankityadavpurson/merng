@@ -1,1 +1,6 @@
-
+.page-title {
+  display: block !important;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 2rem;
+}
