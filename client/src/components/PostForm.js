@@ -17,6 +17,9 @@ const PostForm = () => {
       proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: posts } });
       values.body = "";
     },
+    onError(error) {
+      console.log(error);
+    },
   });
 
   function createPostCB() {
@@ -24,18 +27,28 @@ const PostForm = () => {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <h2>Create a post</h2>
-      <Form.Input
-        placeholder="Hi world"
-        name="body"
-        values={values.body}
-        onChange={onChange}
-      />
-      <Button type="submit" color="teal">
-        Submit
-      </Button>
-    </Form>
+    <>
+      <Form onSubmit={onSubmit}>
+        <h2>Create a post</h2>
+        <Form.Input
+          placeholder="Hi world"
+          name="body"
+          value={values.body}
+          onChange={onChange}
+          error={error ? true : false}
+        />
+        <Button type="submit" color="teal">
+          Submit
+        </Button>
+      </Form>
+      {error && (
+        <div className="ui error message create-post-error">
+          <ul className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 

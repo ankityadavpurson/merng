@@ -9,3 +9,9 @@
   width: 400px;
   margin: auto;
 }
+
+.create-post-error {
+  padding: 5px !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+}
