@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { Button, Icon, Label } from "semantic-ui-react";
+import InfoPopup from "./InfoPopup";
 
 const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   const [liked, setLiked] = useState(false);
@@ -39,12 +40,14 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   );
 
   return (
-    <Button as="div" labelPosition="right">
-      {likeButton}
-      <Label as="a" basic color="teal" pointing="left">
-        {likeCount}
-      </Label>
-    </Button>
+    <InfoPopup content={liked ? "Unlike" : "Like"}>
+      <Button as="div" labelPosition="right">
+        {likeButton}
+        <Label as="a" basic color="teal" pointing="left">
+          {likeCount}
+        </Label>
+      </Button>
+    </InfoPopup>
   );
 };
 
