@@ -3,7 +3,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const PostCard = ({
-  post: { body, createAt, id, username, likeCount, commentCount, likes },
+  post: { body, createdAt, id, username, likeCount, commentCount },
 }) => {
   const handleLikePost = () => {
     console.log("handleLikePost");
@@ -23,7 +23,7 @@ const PostCard = ({
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
-          {moment(createAt).fromNow(true)}
+          {moment(createdAt).fromNow(true)}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
