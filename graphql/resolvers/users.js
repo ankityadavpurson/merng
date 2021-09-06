@@ -67,7 +67,7 @@ module.exports = {
 
       if (user) {
         throw new UserInputError("Uaername is taken", {
-          error: {
+          errors: {
             username: "This username is taken",
           },
         });
