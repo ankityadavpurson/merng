@@ -52,7 +52,7 @@ const SinglePost = (props) => {
             <Image
               floated="right"
               size="small"
-              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+              src={`https://avatars.dicebear.com/api/gridy/${username}.svg`}
             />
           </Grid.Column>
           <Grid.Column width={10}>
