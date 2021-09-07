@@ -6,6 +6,7 @@ import { AuthContext } from "../context/auth";
 import PostCard from "../components/PostCard";
 import PostForm from "../components/PostForm";
 import { FETCH_POSTS_QUERY } from "../utils/graphql";
+import PostCardPlaceholder from "../components/PostCardPlaceholder";
 
 const Home = () => {
   const authContext = useContext(AuthContext);
@@ -23,7 +24,7 @@ const Home = () => {
           </Grid.Column>
         )}
         {loading ? (
-          <h1>Loading posts ...</h1>
+          <PostCardPlaceholder />
         ) : (
           <Transition.Group>
             {data &&

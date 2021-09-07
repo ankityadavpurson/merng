@@ -13,6 +13,7 @@ import LikeButton from "../components/LikeButton";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/auth";
 import DeleteButton from "../components/DeleteButton";
+import SinglePostPlaceholder from "../components/SinglePostPlaceholder";
 
 const SinglePost = (props) => {
   const postId = props.match.params.postId;
@@ -45,7 +46,7 @@ const SinglePost = (props) => {
 
   let postMarkUp;
   if (loading) {
-    postMarkUp = <p> Loading post... </p>;
+    postMarkUp = <SinglePostPlaceholder />;
   } else {
     const { username, createdAt, body, id } = data.getPost;
     const { likeCount, likes, commentCount, comment: comments } = data.getPost;
