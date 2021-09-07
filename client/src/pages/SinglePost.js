@@ -1,20 +1,14 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import {
-  Button,
-  Card,
-  Form,
-  Grid,
-  Icon,
-  Image,
-  Label,
-} from "semantic-ui-react";
+import { Card, Form, Grid, Image, Label } from "semantic-ui-react";
 import moment from "moment";
 import LikeButton from "../components/LikeButton";
 import { useContext, useRef, useState } from "react";
+
 import { AuthContext } from "../context/auth";
 import DeleteButton from "../components/DeleteButton";
 import SinglePostPlaceholder from "../components/SinglePostPlaceholder";
 import InfoPopup from "../components/InfoPopup";
+import CommentButton from "../components/CommentButton";
 
 const SinglePost = (props) => {
   const postId = props.match.params.postId;
@@ -38,11 +32,6 @@ const SinglePost = (props) => {
 
   function onDelete() {
     props.history.push("/");
-  }
-
-  function handleComment() {
-    if (user) commentInputRef.current.focus();
-    else props.history.push("/login");
   }
 
   let postMarkUp;
@@ -71,14 +60,10 @@ const SinglePost = (props) => {
               </Card.Content>
               <Card.Content>
                 <LikeButton post={{ id, likeCount, likes }} user={user} />
-                <Button labelPosition="right" as="div" onClick={handleComment}>
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
-                  </Button>
-                  <Label as="a" basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                <CommentButton
+                  count={commentCount}
+                  inputRef={commentInputRef}
+                />
                 {user && user.username === username && (
                   <DeleteButton postId={id} onDelete={onDelete} />
                 )}
