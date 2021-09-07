@@ -15,7 +15,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
     }
   }, [user, likes]);
 
-  const [likePost] = useMutation(LIKE_POST_MUTATAION, {
+  const [likePost, { loading }] = useMutation(LIKE_POST_MUTATAION, {
     variables: { postId: id },
   });
 
@@ -41,7 +41,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
 
   return (
     <InfoPopup content={liked ? "Unlike" : "Like"}>
-      <Button as="div" labelPosition="right">
+      <Button as="div" labelPosition="right" disabled={loading}>
         {likeButton}
         <Label as="a" basic color="teal" pointing="left">
           {likeCount}

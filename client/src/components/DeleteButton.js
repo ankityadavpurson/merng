@@ -9,7 +9,7 @@ const DeleteButton = ({ postId, commentId, onDelete }) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
-  const [deletePostOrComment] = useMutation(mutation, {
+  const [deletePostOrComment, { loading }] = useMutation(mutation, {
     variables: { postId, commentId },
     update(proxy) {
       if (!commentId) {
@@ -38,10 +38,17 @@ const DeleteButton = ({ postId, commentId, onDelete }) => {
           basic
           floated="right"
           onClick={() => setConfirmOpen(true)}
+          disabled={loading}
         />
       </InfoPopup>
       <Confirm
+        header={`Are your sure! you want delete ${
+          commentId ? "comment" : "post"
+        }.`}
+        size="tiny"
+        content={null}
         open={confirmOpen}
+        confirmButton="Delete"
         onCancel={() => setConfirmOpen(false)}
         onConfirm={deletePostOrComment}
       />

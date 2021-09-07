@@ -6,6 +6,7 @@
   "author": "Ankit",
   "scripts": {
     "dev": "nodemon devServer.js",
+    "server": "node devServer.js",
     "client-build": "cd client && npm run build",
     "build": "cd client && npm install && npm run build",
     "start": "node index.js"

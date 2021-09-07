@@ -38,6 +38,11 @@ const SinglePost = (props) => {
     props.history.push("/");
   }
 
+  function handleComment() {
+    if (user) commentInputRef.current.focus();
+    else props.history.push("/login");
+  }
+
   let postMarkUp;
   if (loading) {
     postMarkUp = <p> Loading post... </p>;
@@ -62,10 +67,9 @@ const SinglePost = (props) => {
                 <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
-              <hr />
               <Card.Content>
                 <LikeButton post={{ id, likeCount, likes }} user={user} />
-                <Button labelPosition="right" as="div" onClick={() => {}}>
+                <Button labelPosition="right" as="div" onClick={handleComment}>
                   <Button color="blue" basic>
                     <Icon name="comments" />
                   </Button>
