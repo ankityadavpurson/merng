@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { Button, Icon, Label } from "semantic-ui-react";
+import { Button, Icon, Image, Label, Popup } from "semantic-ui-react";
 import InfoPopup from "./InfoPopup";
 
 const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
@@ -40,14 +40,28 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   );
 
   return (
-    <InfoPopup content={liked ? "Unlike" : "Like"}>
-      <Button as="div" labelPosition="right" disabled={loading}>
-        {likeButton}
-        <Label as="a" basic color="teal" pointing="left">
-          {likeCount}
-        </Label>
-      </Button>
-    </InfoPopup>
+    <Button as="div" labelPosition="right" disabled={loading}>
+      <InfoPopup content={liked ? "Unlike" : "Like"}>{likeButton}</InfoPopup>
+      <Popup
+        trigger={
+          <Label as="a" basic color="teal" pointing="left">
+            {likeCount}
+          </Label>
+        }
+        on="click"
+        disabled={likes.length === 0}
+      >
+        {likes.map((like) => (
+          <InfoPopup content={like.username} key={like.id}>
+            <Image
+              src={`https://avatars.dicebear.com/api/gridy/${like.username}.svg`}
+              avatar
+              bordered
+            />
+          </InfoPopup>
+        ))}
+      </Popup>
+    </Button>
   );
 };
 
