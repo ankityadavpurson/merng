@@ -1,5 +1,5 @@
-#config
-config.js
+#devServer
+devServer.js
 
 #vscode
 /.vscode
