@@ -8,7 +8,14 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-const httpLink = createHttpLink({ uri: "/graphql" });
+const baseUrl =
+  process.env.NODE_ENV !== "development"
+    ? ""
+    : process.env.REACT_APP_API_BASE_URL;
+
+const httpLink = createHttpLink({
+  uri: baseUrl + "/graphql",
+});
 
 const authLink = setContext(() => {
   const token = localStorage.getItem("jwtToken");
