@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Card, Form, Grid, Image, Label } from "semantic-ui-react";
 import moment from "moment";
 import LikeButton from "../components/LikeButton";
@@ -9,6 +9,7 @@ import DeleteButton from "../components/DeleteButton";
 import SinglePostPlaceholder from "../components/SinglePostPlaceholder";
 import InfoPopup from "../components/InfoPopup";
 import CommentButton from "../components/CommentButton";
+import { CREATE_COMMENT_MUTATION, FETCH_POST_QUERY } from "../utils/graphql";
 
 const SinglePost = (props) => {
   const postId = props.match.params.postId;
@@ -132,44 +133,5 @@ const SinglePost = (props) => {
 
   return postMarkUp;
 };
-
-const CREATE_COMMENT_MUTATION = gql`
-  mutation ($postId: ID!, $body: String!) {
-    createComment(postId: $postId, body: $body) {
-      id
-      comment {
-        id
-        username
-        createdAt
-        body
-      }
-      commentCount
-    }
-  }
-`;
-
-const FETCH_POST_QUERY = gql`
-  query ($postId: ID!) {
-    getPost(postId: $postId) {
-      id
-      body
-      username
-      createdAt
-      comment {
-        id
-        body
-        username
-        createdAt
-      }
-      likes {
-        id
-        username
-        createdAt
-      }
-      commentCount
-      likeCount
-    }
-  }
-`;
 
 export default SinglePost;

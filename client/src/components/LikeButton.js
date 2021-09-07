@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { Button, Icon, Image, Label, Popup } from "semantic-ui-react";
 import InfoPopup from "./InfoPopup";
+import { LIKE_POST_MUTATAION } from "../utils/graphql";
 
 const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   const [liked, setLiked] = useState(false);
@@ -65,18 +66,5 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
     </Button>
   );
 };
-
-const LIKE_POST_MUTATAION = gql`
-  mutation likePost($postId: ID!) {
-    likePost(postId: $postId) {
-      id
-      likes {
-        id
-        username
-      }
-      likeCount
-    }
-  }
-`;
 
 export default LikeButton;
