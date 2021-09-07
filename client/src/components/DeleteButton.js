@@ -5,7 +5,6 @@ import { FETCH_POSTS_QUERY } from "../utils/graphql";
 import InfoPopup from "./InfoPopup";
 
 const DeleteButton = ({ postId, commentId, onDelete }) => {
-  console.log(postId);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;

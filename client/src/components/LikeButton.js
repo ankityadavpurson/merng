@@ -51,7 +51,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
         on="click"
         disabled={likes.length === 0}
       >
-        {likes.map((like) => (
+        {likes.slice(0, 3).map((like) => (
           <InfoPopup content={like.username} key={like.id}>
             <Image
               src={`https://avatars.dicebear.com/api/gridy/${like.username}.svg`}
@@ -60,6 +60,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
             />
           </InfoPopup>
         ))}
+        {likes.length > 3 && <Label circular>{`+${likes.length - 3}`}</Label>}
       </Popup>
     </Button>
   );

@@ -14,6 +14,7 @@ import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/auth";
 import DeleteButton from "../components/DeleteButton";
 import SinglePostPlaceholder from "../components/SinglePostPlaceholder";
+import InfoPopup from "../components/InfoPopup";
 
 const SinglePost = (props) => {
   const postId = props.match.params.postId;
@@ -82,6 +83,22 @@ const SinglePost = (props) => {
                   <DeleteButton postId={id} onDelete={onDelete} />
                 )}
               </Card.Content>
+              {likes.length !== 0 && (
+                <Card.Content>
+                  {likes.slice(0, 15).map((like) => (
+                    <InfoPopup content={like.username} key={like.id}>
+                      <Image
+                        src={`https://avatars.dicebear.com/api/gridy/${like.username}.svg`}
+                        avatar
+                        bordered
+                      />
+                    </InfoPopup>
+                  ))}
+                  {likes.length > 15 && (
+                    <Label circular>{`+${likes.length - 15}`}</Label>
+                  )}
+                </Card.Content>
+              )}
             </Card>
             {user && (
               <Card fluid>

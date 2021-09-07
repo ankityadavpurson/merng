@@ -1,4 +1,4 @@
-import { Button, Grid, Icon } from "semantic-ui-react";
+import { Button, Divider, Grid, Icon } from "semantic-ui-react";
 import { Label, Placeholder, Segment } from "semantic-ui-react";
 
 const PostCardPlaceholder = () => {
@@ -14,8 +14,7 @@ const PostCardPlaceholder = () => {
                 <Placeholder.Line />
               </Placeholder.Header>
             </Placeholder>
-            <br />
-            <br />
+            <Divider />
             <Button labelPosition="right" as="div" disabled>
               <Button color="teal" basic>
                 <Icon name="like" />
