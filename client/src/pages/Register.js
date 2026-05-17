@@ -8,6 +8,8 @@ import { REGISTER_USER_MUTATION } from "../utils/graphql";
 
 const Register = (props) => {
   const authContext = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
@@ -34,14 +36,19 @@ const Register = (props) => {
   }
 
   return (
-    <div className="form-container">
-      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
-        <h1> Register</h1>
+    <div className="form-container auth-container">
+      <Form
+        onSubmit={onSubmit}
+        noValidate
+        className={`auth-form ${loading ? "loading" : ""}`.trim()}
+      >
+        <h1 className="auth-title">Register</h1>
         <Form.Input
           label="Username"
           placeholder="Username"
           name="username"
           type="text"
+          autoComplete="username"
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
@@ -51,6 +58,7 @@ const Register = (props) => {
           placeholder="Email"
           name="email"
           type="email"
+          autoComplete="email"
           value={values.email}
           error={errors.email ? true : false}
           onChange={onChange}
@@ -59,7 +67,14 @@ const Register = (props) => {
           label="Password"
           placeholder="Password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
+          icon={{
+            name: showPassword ? "eye slash" : "eye",
+            link: true,
+            title: showPassword ? "Hide password" : "Show password",
+            onClick: () => setShowPassword(!showPassword),
+          }}
+          autoComplete="new-password"
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
@@ -68,17 +83,24 @@ const Register = (props) => {
           label="Confirm Password"
           placeholder="Confirm Password"
           name="confirmPassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
+          icon={{
+            name: showConfirmPassword ? "eye slash" : "eye",
+            link: true,
+            title: showConfirmPassword ? "Hide password" : "Show password",
+            onClick: () => setShowConfirmPassword(!showConfirmPassword),
+          }}
+          autoComplete="new-password"
           value={values.confirmPassword}
           error={errors.confirmPassword ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary>
+        <Button type="submit" primary className="auth-submit-button">
           Register
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
+        <div className="ui error message auth-error-message">
           <ul className="list">
             {Object.values(errors).map((value) => (
               <li key={value}>{value}</li>
