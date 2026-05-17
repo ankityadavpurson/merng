@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const healthCheck = async (req, res) => {
+  // Disable CORS for this endpoint only
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
   let serverStatus = "OK";
   let databaseStatus = "DOWN";
 
