@@ -5,6 +5,7 @@ const path = require("path");
 
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
+const healthCheck = require("./utils/health");
 
 async function startServer() {
   try {
@@ -19,6 +20,7 @@ async function startServer() {
     const app = express();
 
     app.use(express.static(__dirname + "/client/build"));
+    app.get("/health", healthCheck);
     app.get("/*", function (req, res) {
       res.sendFile(path.join(__dirname + "/client/build/index.html"));
     });
