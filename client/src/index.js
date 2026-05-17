@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 import Apolloprovider from "./ApolloProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Apolloprovider />
-  </React.StrictMode>,
+  <Apolloprovider />,
   document.getElementById("root")
 );
