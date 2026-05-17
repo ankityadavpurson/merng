@@ -9,7 +9,7 @@
     "server": "node devServer.js",
     "client-build": "cd client && npm run build",
     "build": "cd client && yarn install && yarn build",
-    "start": "node index.js"
+    "start": "yarn install && node index.js"
   },
   "dependencies": {
     "apollo-server": "^3.3.0",
