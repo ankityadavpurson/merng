@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: merng
+    runtime: node
+    buildCommand: yarn install && yarn run build
+    startCommand: yarn start
+    envVars:
+      - key: MONGODB_URI
+        scope: run
+      - key: JWT_SECRET
+        scope: run
+      - key: NODE_ENV
+        value: production
