@@ -8,12 +8,12 @@
 }
 
 [data-theme="dark"] {
-  --app-bg: #0f1720;
-  --app-surface: #16212d;
+  --app-bg: #323232;
+  --app-surface: #282828;
   --app-text: #e7edf2;
   --app-text-muted: #9aabb9;
-  --app-border: #2b3946;
-  --app-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --app-border: #454545;
+  --app-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 html,
@@ -23,13 +23,13 @@ body,
 }
 
 body {
-  background: radial-gradient(circle at top, #eaf2f8 0%, var(--app-bg) 45%);
+  background: var(--app-bg);
   color: var(--app-text);
   transition: background-color 180ms ease, color 180ms ease;
 }
 
 [data-theme="dark"] body {
-  background: radial-gradient(circle at top, #1b2632 0%, var(--app-bg) 50%);
+  background: var(--app-bg);
 }
 
 .ui.container {
