@@ -18,7 +18,7 @@ const PostCard = ({
         <Image
           floated="right"
           size="mini"
-          src={`https://avatars.dicebear.com/api/gridy/${username}.svg`}
+          src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${username}`}
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>

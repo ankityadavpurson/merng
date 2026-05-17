@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useContext } from "react";
-import { Grid, Transition } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import PostCard from "../components/PostCard";
@@ -13,27 +13,31 @@ const Home = () => {
   const { loading, data } = useQuery(FETCH_POSTS_QUERY);
 
   return (
-    <Grid columns={3}>
+    <Grid columns={3} stackable>
       <Grid.Row className="page-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
         {authContext.user && (
-          <Grid.Column>
+          <Grid.Column mobile={16} tablet={8} computer={5} style={{ marginBottom: 20 }}>
             <PostForm />
           </Grid.Column>
         )}
         {loading ? (
           <PostCardPlaceholder />
         ) : (
-          <Transition.Group>
-            {data &&
-              data.getPosts.map((post) => (
-                <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-                  <PostCard post={post} />
-                </Grid.Column>
-              ))}
-          </Transition.Group>
+          data &&
+          data.getPosts.map((post) => (
+            <Grid.Column
+              key={post.id}
+              mobile={16}
+              tablet={8}
+              computer={5}
+              style={{ marginBottom: 20 }}
+            >
+              <PostCard post={post} />
+            </Grid.Column>
+          ))
         )}
       </Grid.Row>
     </Grid>

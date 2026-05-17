@@ -43,23 +43,23 @@ const SinglePost = (props) => {
     const { likeCount, likes, commentCount, comment: comments } = data.getPost;
 
     postMarkUp = (
-      <Grid>
+      <Grid className="single-post-grid">
         <Grid.Row>
-          <Grid.Column width={2}>
+          <Grid.Column mobile={16} tablet={4} computer={3} className="single-post-avatar-column">
             <Image
-              floated="right"
+              centered
               size="small"
-              src={`https://avatars.dicebear.com/api/gridy/${username}.svg`}
+              src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${username}`}
             />
           </Grid.Column>
-          <Grid.Column width={10}>
+          <Grid.Column mobile={16} tablet={12} computer={10} className="single-post-content-column">
             <Card fluid>
               <Card.Content>
                 <Card.Header>{username}</Card.Header>
                 <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
-              <Card.Content>
+              <Card.Content className="single-post-actions">
                 <LikeButton post={{ id, likeCount, likes }} user={user} />
                 <CommentButton
                   count={commentCount}
@@ -74,7 +74,7 @@ const SinglePost = (props) => {
                   {likes.slice(0, 15).map((like) => (
                     <InfoPopup content={like.username} key={like.id}>
                       <Image
-                        src={`https://avatars.dicebear.com/api/gridy/${like.username}.svg`}
+                        src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${like.username}`}
                         avatar
                         bordered
                       />
@@ -91,7 +91,7 @@ const SinglePost = (props) => {
                 <Card.Content>
                   <Form>
                     <p>Post a comment</p>
-                    <div className="ui action input fluid">
+                    <div className="ui action input fluid single-post-comment-input">
                       <input
                         type="text"
                         placeholder="Comment..."

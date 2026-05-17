@@ -45,11 +45,10 @@ const DeleteButton = ({ postId, commentId, onDelete }) => {
         />
       </InfoPopup>
       <Confirm
-        header={`Are your sure! you want delete ${
-          commentId ? "comment" : "post"
-        }.`}
+        className="app-confirm-dialog"
+        header={`Delete this ${commentId ? "comment" : "post"}?`}
         size="tiny"
-        content={null}
+        content={`This action cannot be undone.`}
         open={confirmOpen}
         confirmButton="Delete"
         onCancel={() => setConfirmOpen(false)}

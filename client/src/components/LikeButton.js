@@ -55,7 +55,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
         {likes.slice(0, 3).map((like) => (
           <InfoPopup content={like.username} key={like.id}>
             <Image
-              src={`https://avatars.dicebear.com/api/gridy/${like.username}.svg`}
+              src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${like.username}`}
               avatar
               bordered
             />

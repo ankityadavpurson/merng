@@ -5,7 +5,7 @@ const PostCardPlaceholder = () => {
   return (
     <>
       {Array.from(Array(3).keys()).map((n) => (
-        <Grid.Column key={n}>
+        <Grid.Column key={n} mobile={16} tablet={8} computer={5}>
           <Segment raised>
             <Placeholder>
               <Placeholder.Header>
