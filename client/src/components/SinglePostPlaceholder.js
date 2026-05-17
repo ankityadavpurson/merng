@@ -3,15 +3,15 @@ import { Button, Divider, Grid, Icon } from "semantic-ui-react";
 
 const SinglePostPlaceholder = () => {
   return (
-    <Grid>
+    <Grid className="single-post-grid">
       <Grid.Row>
-        <Grid.Column width={2}>
-          <Placeholder style={{ height: 150, width: 150 }}>
+        <Grid.Column mobile={16} tablet={4} computer={3} className="single-post-avatar-column">
+          <Placeholder style={{ height: 150, width: 150, margin: "0 auto" }}>
             <Placeholder.Image />
           </Placeholder>
         </Grid.Column>
-        <Grid.Column width={10}>
-          <Segment raised style={{ marginLeft: 20 }}>
+        <Grid.Column mobile={16} tablet={12} computer={10} className="single-post-content-column">
+          <Segment raised>
             <Placeholder fluid>
               <Placeholder.Line />
               <Placeholder.Line />
@@ -37,7 +37,7 @@ const SinglePostPlaceholder = () => {
             <Button icon="trash" color="red" basic floated="right" disabled />
           </Segment>
           {Array.from(Array(2).keys()).map((n) => (
-            <Segment key={n} raised style={{ marginLeft: 20 }}>
+            <Segment key={n} raised>
               <Placeholder fluid>
                 <Placeholder.Line />
                 <Placeholder.Line />

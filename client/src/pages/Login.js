@@ -8,6 +8,7 @@ import { LOGIN_USER_MUTATION } from "../utils/graphql";
 
 const Login = (props) => {
   const authContext = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { onChange, onSubmit, values } = useForm(loginUserCB, {
     username: "",
@@ -33,14 +34,19 @@ const Login = (props) => {
   }
 
   return (
-    <div className="form-container">
-      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
-        <h1>Login</h1>
+    <div className="form-container auth-container">
+      <Form
+        onSubmit={onSubmit}
+        noValidate
+        className={`auth-form ${loading ? "loading" : ""}`.trim()}
+      >
+        <h1 className="auth-title">Login</h1>
         <Form.Input
           label="Username"
           placeholder="Username"
           name="username"
           type="text"
+          autoComplete="username"
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
@@ -49,17 +55,24 @@ const Login = (props) => {
           label="Password"
           placeholder="Password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
+          icon={{
+            name: showPassword ? "eye slash" : "eye",
+            link: true,
+            title: showPassword ? "Hide password" : "Show password",
+            onClick: () => setShowPassword(!showPassword),
+          }}
+          autoComplete="current-password"
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary>
+        <Button type="submit" primary className="auth-submit-button">
           Login
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
+        <div className="ui error message auth-error-message">
           <ul className="list">
             {Object.values(errors).map((value) => (
               <li key={value}>{value}</li>
