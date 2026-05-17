@@ -2,8 +2,9 @@ services:
   - type: web
     name: merng
     runtime: node
-    buildCommand: yarn install && yarn run build
-    startCommand: yarn start
+    plan: free
+    buildCommand: npm install --production=false && npm run build
+    startCommand: npm start
     envVars:
       - key: MONGODB_URI
         scope: run
