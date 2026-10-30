@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Image, Label, Popup } from "semantic-ui-react";
+
 import InfoPopup from "./InfoPopup";
 import { LIKE_POST_MUTATAION } from "../utils/graphql";
+import { getProfileImage } from "../utils/images";
 
 const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   const [liked, setLiked] = useState(false);
@@ -55,7 +57,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
         {likes.slice(0, 3).map((like) => (
           <InfoPopup content={like.username} key={like.id}>
             <Image
-              src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${like.username}`}
+              src={getProfileImage(like.username)}
               avatar
               bordered
             />

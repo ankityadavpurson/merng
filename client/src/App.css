@@ -8,11 +8,11 @@
 }
 
 [data-theme="dark"] {
-  --app-bg: #323232;
-  --app-surface: #282828;
-  --app-text: #e7edf2;
-  --app-text-muted: #9aabb9;
-  --app-border: #454545;
+  --app-bg: #1b1b1b;
+  --app-surface: #2a2a2a;
+  --app-text: #ececec;
+  --app-text-muted: #a3a3a3;
+  --app-border: #4a4a4a;
   --app-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
@@ -123,7 +123,12 @@ body {
 [data-theme="dark"] .ui.card,
 [data-theme="dark"] .ui.segment,
 [data-theme="dark"] .ui.cards > .card {
-  box-shadow: var(--app-shadow) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px var(--app-border) !important;
+}
+
+[data-theme="dark"] .ui.card > .extra,
+[data-theme="dark"] .ui.cards > .card > .extra {
+  border-top-color: var(--app-border) !important;
 }
 
 [data-theme="dark"] .ui.card .meta,
@@ -247,18 +252,18 @@ body {
 }
 
 [data-theme="dark"] .ui.modal > .actions > .button:not(.positive):not(.negative):not(.primary) {
-  background: #2a3845 !important;
+  background: #3a3a3a !important;
   color: var(--app-text) !important;
 }
 
 [data-theme="dark"] .ui.modal > .actions > .button:hover:not(.positive):not(.negative):not(.primary) {
-  background: #324556 !important;
+  background: #454545 !important;
 }
 
 [data-theme="dark"] .ui.placeholder .line,
 [data-theme="dark"] .ui.placeholder .line:after,
 [data-theme="dark"] .ui.placeholder .image {
-  background-color: #2a3946 !important;
+  background-color: #363636 !important;
 }
 
 [data-theme="dark"] .ui.action.input:not([class*="left action"]) > .button,
@@ -356,4 +361,23 @@ body {
   .single-post-comment-input button.ui.button {
     white-space: nowrap;
   }
+}
+
+[data-theme="dark"] .ui.basic.blue.label,
+[data-theme="dark"] .ui.basic.blue.button,
+[data-theme="dark"] .ui.basic.blue.buttons .button,
+[data-theme="dark"] .ui.blue.basic.button .icon {
+  color: #5eb4ff !important;
+}
+
+[data-theme="dark"] .ui.card .meta,
+[data-theme="dark"] .ui.cards > .card .meta,
+[data-theme="dark"] .ui.card > .content > .meta,
+[data-theme="dark"] .ui.cards > .card > .content > .meta {
+  color: var(--app-text-muted) !important;
+}
+
+[data-theme="dark"] .ui.secondary.pointing.menu .active.item,
+[data-theme="dark"] .ui.secondary.pointing.menu .active.item:hover {
+  color: #21c7be !important;
 }

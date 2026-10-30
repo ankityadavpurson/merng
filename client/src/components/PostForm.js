@@ -1,5 +1,5 @@
 import { Button, Form } from "semantic-ui-react";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 
 import { useForm } from "../utils/hooks";
 import { CREATE_POST_MUTATION, FETCH_POSTS_QUERY } from "../utils/graphql";
@@ -44,7 +44,7 @@ const PostForm = () => {
       {error && (
         <div className="ui error message create-post-error">
           <ul className="list">
-            <li>{error.graphQLErrors[0].message}</li>
+            <li>{error.errors?.[0]?.message ?? error.message}</li>
           </ul>
         </div>
       )}

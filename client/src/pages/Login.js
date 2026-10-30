@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client/react";
 import { Button, Form } from "semantic-ui-react";
 
 import { useForm } from "../utils/hooks";
 import { AuthContext } from "../context/auth";
 import { LOGIN_USER_MUTATION } from "../utils/graphql";
 
-const Login = (props) => {
+const Login = () => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,11 +22,11 @@ const Login = (props) => {
   const [loginUser, { loading }] = useMutation(LOGIN_USER_MUTATION, {
     update(proxy, result) {
       authContext.login(result.data.login);
-      props.history.push("/");
+      navigate("/");
     },
     onError(error) {
       console.log({ error });
-      setErrors(error.graphQLErrors[0].extensions.errors);
+      setErrors(error.errors[0].extensions.errors);
     },
     variables: values,
   });
