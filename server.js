@@ -1,4 +1,6 @@
-const { ApolloServer } = require("apollo-server-express");
+const { ApolloServer } = require("@apollo/server");
+const { expressMiddleware } = require("@as-integrations/express5");
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -14,7 +16,6 @@ async function startServer() {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      context: ({ req }) => ({ req }),
     });
 
     const app = express();
@@ -22,15 +23,20 @@ async function startServer() {
     app.get("/health", healthCheck);
 
     app.use(express.static(__dirname + "/client/build"));
-    app.get("/*", function (req, res) {
+    app.get("/{*splat}", function (req, res) {
       res.sendFile(path.join(__dirname + "/client/build/index.html"));
     });
 
     await server.start();
-    server.applyMiddleware({ app });
+    app.use(
+      "/graphql",
+      cors(),
+      express.json(),
+      expressMiddleware(server, { context: async ({ req }) => ({ req }) })
+    );
 
     const MONGODB_URL = process.env.MONGODB_URL;
-    const conn = await mongoose.connect(MONGODB_URL, { useNewUrlParser: true });
+    const conn = await mongoose.connect(MONGODB_URL);
 
     const { name, host, port } = conn.connection;
     console.log(
@@ -40,7 +46,7 @@ async function startServer() {
     const PORT = process.env.PORT || 5000;
     app.listen({ port: PORT }, () =>
       console.log(
-        `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:${PORT}/graphql`
       )
     );
   } catch (error) {

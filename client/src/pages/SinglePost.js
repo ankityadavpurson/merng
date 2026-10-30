@@ -1,4 +1,5 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { Card, Form, Grid, Image, Label } from "semantic-ui-react";
 import moment from "moment";
 import LikeButton from "../components/LikeButton";
@@ -12,9 +13,10 @@ import CommentButton from "../components/CommentButton";
 import { CREATE_COMMENT_MUTATION, FETCH_POST_QUERY } from "../utils/graphql";
 import { getProfileImage } from "../utils/images";
 
-const SinglePost = (props) => {
-  const postId = props.match.params.postId;
+const SinglePost = () => {
+  const postId = useParams().postId;
 
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const commentInputRef = useRef(null);
 
@@ -33,7 +35,7 @@ const SinglePost = (props) => {
   });
 
   function onDelete() {
-    props.history.push("/");
+    navigate("/");
   }
 
   let postMarkUp;

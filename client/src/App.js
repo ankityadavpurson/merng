@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "semantic-ui-css/semantic.min.css";
 import { Container } from "semantic-ui-react";
@@ -77,10 +77,15 @@ function App() {
       <Router>
         <Container>
             <MenuBar theme={theme} onThemeToggle={handleThemeToggle} />
-          <Route exact path="/" component={Home} />
-          <AuthRoute exact path="/login" component={Login} />
-          <AuthRoute exact path="/register" component={Register} />
-          <Route exact path="/posts/:postId" component={SinglePost} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<AuthRoute component={Login} />} />
+            <Route
+              path="/register"
+              element={<AuthRoute component={Register} />}
+            />
+            <Route path="/posts/:postId" element={<SinglePost />} />
+          </Routes>
         </Container>
       </Router>
     </AuthProvider>

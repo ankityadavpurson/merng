@@ -1,23 +1,19 @@
 import React from "react";
 import App from "./App";
-import {
-  InMemoryCache,
-  createHttpLink,
-  ApolloProvider,
-  ApolloClient,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { InMemoryCache, HttpLink, ApolloClient } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
+import { SetContextLink } from "@apollo/client/link/context";
 
 const baseUrl =
   process.env.NODE_ENV !== "development"
     ? ""
     : process.env.REACT_APP_API_BASE_URL;
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: baseUrl + "/graphql",
 });
 
-const authLink = setContext(() => {
+const authLink = new SetContextLink(() => {
   const token = localStorage.getItem("jwtToken");
   return {
     headers: { authorization: token ? `Bearer ${token}` : "" },

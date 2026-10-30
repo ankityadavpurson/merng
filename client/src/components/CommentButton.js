@@ -1,20 +1,20 @@
 import { useContext } from "react";
 import { Button, Icon, Label } from "semantic-ui-react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/auth";
 import InfoPopup from "./InfoPopup";
 
 const CommentButton = ({ postId, count, inputRef }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   function handleComment() {
     if (user) {
-      if (postId) history.push(`/posts/${postId}`);
+      if (postId) navigate(`/posts/${postId}`);
       else inputRef.current.focus();
     } else {
-      history.push("/login");
+      navigate("/login");
     }
   }
 
