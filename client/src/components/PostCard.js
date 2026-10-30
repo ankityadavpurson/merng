@@ -7,6 +7,7 @@ import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 import DeleteButton from "./DeleteButton";
 import CommentButton from "./CommentButton";
+import { getProfileImage } from "../utils/images";
 
 const PostCard = ({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -14,14 +15,14 @@ const PostCard = ({
   const { user } = useContext(AuthContext);
   return (
     <Card fluid>
-      <Card.Content>
+      <Card.Content as={Link} to={`/posts/${id}`}>
         <Image
           floated="right"
           size="mini"
-          src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${username}`}
+          src={getProfileImage(username)}
         />
         <Card.Header>{username}</Card.Header>
-        <Card.Meta as={Link} to={`/posts/${id}`}>
+        <Card.Meta>
           {moment(createdAt).fromNow(true)}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>

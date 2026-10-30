@@ -10,6 +10,7 @@ import SinglePostPlaceholder from "../components/SinglePostPlaceholder";
 import InfoPopup from "../components/InfoPopup";
 import CommentButton from "../components/CommentButton";
 import { CREATE_COMMENT_MUTATION, FETCH_POST_QUERY } from "../utils/graphql";
+import { getProfileImage } from "../utils/images";
 
 const SinglePost = (props) => {
   const postId = props.match.params.postId;
@@ -49,7 +50,7 @@ const SinglePost = (props) => {
             <Image
               centered
               size="small"
-              src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${username}`}
+              src={getProfileImage(username)}
             />
           </Grid.Column>
           <Grid.Column mobile={16} tablet={12} computer={10} className="single-post-content-column">
@@ -74,7 +75,7 @@ const SinglePost = (props) => {
                   {likes.slice(0, 15).map((like) => (
                     <InfoPopup content={like.username} key={like.id}>
                       <Image
-                        src={`https://api.dicebear.com/9.x/lorelei/svg?seed=${like.username}`}
+                        src={getProfileImage(like.username)}
                         avatar
                         bordered
                       />
